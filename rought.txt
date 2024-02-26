@@ -1,0 +1,42 @@
+// Find a date is valid or not 
+#include <stdio.h>
+
+int isLeapYear(int year) {
+    return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
+}
+
+int isValidDate(int day, int month, int year) {
+    // Array to store the number of days in each month
+    int daysInMonth[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    // Check if the year is a leap year and update February days accordingly
+    if (isLeapYear(year))
+        daysInMonth[2] = 29;
+
+    // Check if the month is valid
+    if (month < 1 || month > 12)
+        return 0;
+
+    // Check if the day is valid
+    if (day < 1 || day > daysInMonth[month])
+        return 0;
+
+    // If all checks pass, the date is valid
+    return 1;
+}
+
+int main() {
+    int day, month, year;
+
+    // Input date from the user
+    printf("Enter date (DD MM YYYY): ");
+    scanf("%d %d %d", &day, &month, &year);
+
+    // Check if the date is valid and display the result
+    if (isValidDate(day, month, year))
+        printf("The date is valid.\n");
+    else
+        printf("The date is invalid.\n");
+
+    return 0;
+}
